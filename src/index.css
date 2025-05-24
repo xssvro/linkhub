@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --ant-layout-header-height: 48px!important;
+}
+
+/* 确保暗黑模式下的基本颜色 */
+:root.dark body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+.app {
+  --ant-layout-header-height: 48px!important; /* 添加这一行 */
+}
+
+/* 添加赛博朋克风格的全局样式 */
+.dark {
+  --neon-cyan: rgba(6, 182, 212, 0.6);
+  --neon-pink: rgba(249, 38, 138, 0.6);
+  --neon-purple: rgba(124, 58, 237, 0.6);
+}
+
+/* 霓虹文字效果 */
+.dark .neon-text-cyan {
+  text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 15px var(--neon-cyan);
+}
+
+.dark .neon-text-pink {
+  text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 15px var(--neon-pink);
+}
+
+/* 闪烁动画 */
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.5;
+  }
+}
+
+.dark .flicker {
+  animation: flicker 4s linear infinite;
+}
