@@ -1,3 +1,5 @@
+import scrollbar from 'tailwind-scrollbar';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -28,4 +30,7 @@ export default {
   corePlugins: {
     preflight: false, // 禁用 Tailwind 的基础样式，防止与 Ant Design 冲突
   },
+  plugins: [
+    scrollbar,
+  ],
 } 

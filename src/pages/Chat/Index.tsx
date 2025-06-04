@@ -40,6 +40,7 @@ const Chat = () => {
   const [currentAiMessage, setCurrentAiMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [aiMessageAdded, setAiMessageAdded] = useState(false);
+  const [isComposing, setIsComposing] = useState(false);
 
   // 使用useStreamRequest hook
   const { execute: executeStreamRequest, abort } = useStreamRequest<string>(
@@ -175,7 +176,7 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col h-[calc(100vh-80px)]">
-      <div className="flex-1 overflow-auto bg-gray-50 dark:bg-black dark:bg-opacity-60 rounded-md p-4 mb-4 dark:border dark:border-pink-500 dark:border-opacity-30 dark:backdrop-blur-sm dark:shadow-lg dark:shadow-pink-500/10">
+      <div className="flex-1 overflow-auto bg-gray-50 dark:bg-black dark:bg-opacity-60 rounded-md p-4 mb-4 dark:border dark:border-pink-500 dark:border-opacity-30 dark:backdrop-blur-sm dark:shadow-lg dark:shadow-pink-500/10 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500">
         {messages.map((message, index) => (
           <div 
             key={index} 
@@ -215,8 +216,10 @@ const Chat = () => {
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="输入消息..."
           autoSize={{ minRows: 1, maxRows: 4 }}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
           onPressEnter={(e) => {
-            if (!e.shiftKey) {
+            if (!e.shiftKey && !isComposing) {
               e.preventDefault();
               handleSendMessage();
             }
