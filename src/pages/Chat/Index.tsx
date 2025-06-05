@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Input, Button, Spin, Select } from 'antd';
 import { SendOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useStreamRequest } from '../../hooks/useRequest';
@@ -41,6 +41,26 @@ const Chat = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [aiMessageAdded, setAiMessageAdded] = useState(false);
   const [isComposing, setIsComposing] = useState(false);
+
+  // 使用useCallback优化处理函数
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value);
+  }, []);
+
+  // 处理输入法开始组合输入
+  const handleCompositionStart = useCallback(() => {
+    setIsComposing(true);
+  }, []);
+
+  // 处理输入法结束组合输入
+  const handleCompositionEnd = useCallback(() => {
+    setIsComposing(false);
+  }, []);
+
+  const handleAbort = useCallback(() => {
+    abort();
+    setLoading(false);
+  }, []);
 
   // 使用useStreamRequest hook
   const { execute: executeStreamRequest, abort } = useStreamRequest<string>(
@@ -96,7 +116,39 @@ const Chat = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, currentAiMessage]);
 
-  const handleSendMessage = async () => {
+  // 使用useMemo优化消息列表渲染，代替memo
+  const messageList = useMemo(() => {
+    // 创建一个函数来格式化时间
+    const formatTime = (date: Date) => {
+      return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    };
+
+    // 创建一个函数来添加动画类
+    const addMessageAnimation = (index: number) => {
+      return `animate-[slide-in_0.3s_ease-out_${index * 0.05}s_both]`;
+    };
+
+    return messages.map((message, index) => (
+      <div 
+        key={`${index}-${message.timestamp.getTime()}`}
+        className={`flex mb-4 ${message.sender === 'user' ? 'justify-end' : 'justify-start'} ${addMessageAnimation(index)}`}
+      >
+        {message.sender === 'ai' ? (
+          <div className="w-full max-w-full bg-white dark:bg-gray-800 p-3 rounded-md">
+            <AnswerAction content={message.content} />
+          </div>
+        ) : (
+          <div className="max-w-[70%] mx-2 p-3 bg-gray-100 dark:bg-gray-700 rounded-md text-gray-900 dark:text-gray-100">
+            <div className="text-sm break-words whitespace-pre-wrap text-left">{message.content}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">{formatTime(message.timestamp)}</div>
+          </div>
+        )}
+      </div>
+    ));
+  }, [messages]);
+
+  // 使用useCallback优化发送消息函数
+  const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return;
     
     // 添加用户消息
@@ -106,7 +158,8 @@ const Chat = () => {
       timestamp: new Date()
     };
     
-    setMessages([...messages, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
+    const currentInput = inputValue; // 保存当前输入值
     setInputValue('');
     setLoading(true);
     setCurrentAiMessage('');
@@ -122,7 +175,7 @@ const Chat = () => {
             role: msg.sender === 'user' ? 'user' : 'assistant',
             content: msg.content
           })),
-        { role: 'user', content: inputValue }
+        { role: 'user', content: currentInput }
       ],
       stream: true,
     };
@@ -139,7 +192,15 @@ const Chat = () => {
       console.error('请求出错:', error);
       setLoading(false);
     }
-  };
+  }, [inputValue, messages, executeStreamRequest]);
+
+  // 优化按键处理
+  const handleKeyPress = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey && !isComposing) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  }, [isComposing, handleSendMessage]);
 
   // 当currentAiMessage改变时，如果未添加AI消息则添加一条
   useEffect(() => {
@@ -164,47 +225,14 @@ const Chat = () => {
     }
   }, [currentAiMessage, aiMessageAdded, loading]);
 
-  // 格式化时间
-  const formatTime = (date: Date) => {
-    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-  };
-
-  // 添加消息出现动画效果
-  const addMessageAnimation = (index: number) => {
-    return `animate-[slide-in_0.3s_ease-out_${index * 0.05}s_both]`;
-  };
-
   return (
-    <div className="flex flex-col h-[calc(100vh-80px)]">
-      <div className="flex-1 overflow-auto bg-gray-50 dark:bg-black dark:bg-opacity-60 rounded-md p-4 mb-4 dark:border dark:border-pink-500 dark:border-opacity-30 dark:backdrop-blur-sm dark:shadow-lg dark:shadow-pink-500/10 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500">
-        {messages.map((message, index) => (
-          <div 
-            key={index} 
-            className={`flex mb-4 ${message.sender === 'user' ? 'justify-end' : 'justify-start'} ${addMessageAnimation(index)}`}
-          >
-            <div className={`flex ${message.sender === 'user' ? 'flex-row-reverse' : ''} w-full`}>
-              {message.sender === 'ai' ? 
-                  <div className="w-full max-w-full dark:bg-black dark:bg-opacity-30 dark:p-3 dark:rounded-md dark:border-l-2 dark:border-pink-500 hover:dark:border-cyan-500 transition-colors duration-300">
-                    <AnswerAction content={message.content} />
-                  </div> : 
-                  <div
-                    className={`${
-                      message.sender === 'user' 
-                        ? 'mx-2 p-3 bg-gray-100 dark:bg-purple-900 dark:bg-opacity-40 rounded-md text-right dark:text-pink-300 dark:shadow-lg dark:shadow-purple-500/20 dark:border dark:border-pink-500 dark:border-opacity-30 hover:dark:border-cyan-400 transition-colors duration-300 neon-text-pink' 
-                        : 'dark:text-pink-300'
-                    }`}
-                  >
-                    <div className="text-sm break-words">{message.content}</div>
-                    <div className="text-xs text-gray-500 dark:text-pink-400 mt-1 neon-text-pink">{formatTime(message.timestamp)}</div>
-                  </div>
-              }
-            </div>
-          </div>
-        ))}
+    <div className="flex flex-col h-full">
+      <div className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-800 rounded-md p-4 mb-4">
+        {messageList}
         {loading && !currentAiMessage && (
-          <div className="flex mb-4 items-center gap-1 dark:text-pink-400 animate-pulse">
-            <Spin indicator={<LoadingOutlined style={{ color: '#fc3bfb' }} spin />} size="small" />
-            <span className="dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-pink-400 dark:to-pink-600 flicker">思考中...</span>
+          <div className="flex mb-4 items-center gap-1 text-gray-600 dark:text-gray-400 animate-pulse">
+            <Spin indicator={<LoadingOutlined style={{ color: '#6b7280' }} spin />} size="small" />
+            <span className="text-gray-700 dark:text-gray-300">思考中...</span>
           </div>
         )}
         <div ref={messagesEndRef} />
@@ -213,37 +241,29 @@ const Chat = () => {
       <div className="flex flex-col">
         <TextArea
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={handleInputChange}
           placeholder="输入消息..."
           autoSize={{ minRows: 1, maxRows: 4 }}
-          onCompositionStart={() => setIsComposing(true)}
-          onCompositionEnd={() => setIsComposing(false)}
-          onPressEnter={(e) => {
-            if (!e.shiftKey && !isComposing) {
-              e.preventDefault();
-              handleSendMessage();
-            }
-          }}
-          className="flex-1 mb-2 dark:bg-black dark:bg-opacity-70 dark:text-pink-300 dark:border-purple-600 dark:focus:border-pink-400 dark:placeholder-purple-400 dark:placeholder-opacity-60 dark:shadow-inner dark:shadow-purple-500/10 transition-all duration-300 focus:dark:shadow-pink-500/20"
+          onPressEnter={handleKeyPress}
+          onCompositionStart={handleCompositionStart}
+          onCompositionEnd={handleCompositionEnd}
+          className="flex-1 mb-2 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:border-gray-500 dark:placeholder-gray-500 transition-all duration-300"
         />
         <div className="flex justify-between items-center">
           <div className="flex space-x-2">
             <Select 
               value={selectedModel}
-              onChange={(value) => setSelectedModel(value)}
+              onChange={setSelectedModel}
               style={{ width: 120 }}
               options={models}
-              className="dark:bg-black dark:bg-opacity-70 dark:text-pink-300 transition-all duration-300"
-              dropdownClassName="dark:bg-gray-900 dark:text-pink-300 dark:border-purple-600"
+              className="dark:bg-gray-800 dark:text-gray-100 transition-all duration-300"
+              dropdownClassName="dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600"
             />
             {loading && (
               <Button 
                 danger
-                onClick={() => {
-                  abort();
-                  setLoading(false);
-                }}
-                className="dark:bg-pink-900 dark:text-white dark:border-pink-600 dark:hover:bg-pink-700 dark:hover:border-pink-400 dark:shadow-md dark:shadow-pink-500/20 transition-all duration-300 dark:hover:neon-text-pink"
+                onClick={handleAbort}
+                className="dark:bg-red-700 dark:text-white dark:border-red-600 dark:hover:bg-red-600 dark:hover:border-red-500 transition-all duration-300"
               >
                 停止生成
               </Button>
@@ -254,7 +274,7 @@ const Chat = () => {
             icon={<SendOutlined />} 
             onClick={handleSendMessage}
             disabled={loading || !inputValue.trim()}
-            className="dark:bg-gradient-to-r dark:from-pink-700 dark:to-purple-700 dark:border-pink-500 dark:hover:bg-pink-600 dark:text-white dark:hover:border-pink-400 dark:shadow-md dark:shadow-pink-500/30 transition-all duration-300 hover:dark:shadow-lg hover:dark:shadow-pink-500/40 dark:hover:neon-text-pink"
+            className="dark:bg-blue-600 dark:border-blue-600 dark:hover:bg-blue-500 dark:text-white dark:hover:border-blue-500 transition-all duration-300"
           >
             发送
           </Button>

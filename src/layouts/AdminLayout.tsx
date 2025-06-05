@@ -59,22 +59,24 @@ const AdminLayout = () => {
         />
       </Sider>
       <Layout className={collapsed ? 'ml-[80px]' : 'ml-[200px]'}>
-        <Header className="bg-white flex items-center justify-between px-4 shadow-sm">
+        <Header className="bg-white dark:bg-gray-800 flex items-center justify-between px-4">
           <Button
             type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            icon={collapsed ? <MenuUnfoldOutlined className="text-gray-700 dark:text-gray-300" /> : <MenuFoldOutlined className="text-gray-700 dark:text-gray-300" />}
             onClick={() => setCollapsed(!collapsed)}
+            className="text-gray-700 dark:text-gray-300"
           />
           <Button 
             type="text" 
-            icon={theme === 'dark' ? <SunOutlined /> : <MoonOutlined />} 
+            icon={theme === 'dark' ? <SunOutlined className="text-yellow-500" /> : <MoonOutlined className="text-gray-600" />} 
             onClick={toggleTheme}
+            className="text-gray-700 dark:text-gray-300"
           />
         </Header>
-        <Content className="m-6 p-6 bg-white rounded-md">
+        <Content className="m-6 p-6 bg-white dark:bg-gray-800 rounded-md">
           <Outlet />
         </Content>
-        <Footer className="text-center">LinkHub Admin ©{new Date().getFullYear()}</Footer>
+        <Footer className="text-center text-gray-600 dark:text-gray-400">LinkHub Admin ©{new Date().getFullYear()}</Footer>
       </Layout>
     </Layout>
   );

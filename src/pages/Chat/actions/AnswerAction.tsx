@@ -70,7 +70,7 @@ const AnswerAction: React.FC<AnswerActionProps> = ({ content }) => {
   const markdownContent = preprocessMath(content);
 
   return (
-    <div className="markdown-content mx-2 rounded-md dark:text-white w-full max-w-full">
+    <div className="markdown-content mx-2 rounded-md text-gray-900 dark:text-white w-full max-w-full">
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[rehypeKatex]}
@@ -132,36 +132,36 @@ const AnswerAction: React.FC<AnswerActionProps> = ({ content }) => {
             );
           },
           
-          // 表格样式
+          // 表格样式 - 简洁版本
           table: ({...props}) => (
-            <div className="overflow-x-auto my-4">
-              <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm" {...props} />
+            <div className="overflow-x-auto my-6">
+              <table className="min-w-full bg-white dark:bg-gray-800" {...props} />
             </div>
           ),
           thead: ({...props}) => (
-            <thead className="bg-gray-50 dark:bg-gray-700" {...props} />
+            <thead className="bg-gray-200 dark:bg-gray-600" {...props} />
           ),
           tbody: ({...props}) => (
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-600" {...props} />
+            <tbody {...props} />
           ),
           tr: ({...props}) => (
-            <tr className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" {...props} />
+            <tr {...props} />
           ),
           th: ({...props}) => (
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-gray-600" {...props} />
+            <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 dark:text-gray-100" {...props} />
           ),
           td: ({...props}) => (
-            <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-600" {...props} />
+            <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100" {...props} />
           ),
           // 修复间距和样式
-          h1: ({...props}) => <h1 className="text-2xl font-bold my-3" {...props} />,
-          h2: ({...props}) => <h2 className="text-xl font-bold my-2" {...props} />,
-          h3: ({...props}) => <h3 className="text-lg font-bold my-2" {...props} />,
-          p: ({...props}) => <p className="my-2" {...props} />,
-          ul: ({...props}) => <ul className="list-disc pl-5 my-2" {...props} />,
-          ol: ({...props}) => <ol className="list-decimal pl-5 my-2" {...props} />,
-          li: ({...props}) => <li className="my-1" {...props} />,
-          blockquote: ({...props}) => <blockquote className="border-l-4 border-gray-300 dark:border-gray-600 pl-4 my-3 italic" {...props} />
+          h1: ({...props}) => <h1 className="text-2xl font-bold my-3 text-gray-900 dark:text-white" {...props} />,
+          h2: ({...props}) => <h2 className="text-xl font-bold my-2 text-gray-900 dark:text-white" {...props} />,
+          h3: ({...props}) => <h3 className="text-lg font-bold my-2 text-gray-900 dark:text-white" {...props} />,
+          p: ({...props}) => <p className="my-2 text-gray-800 dark:text-gray-200" {...props} />,
+          ul: ({...props}) => <ul className="list-disc pl-5 my-2 text-gray-800 dark:text-gray-200" {...props} />,
+          ol: ({...props}) => <ol className="list-decimal pl-5 my-2 text-gray-800 dark:text-gray-200" {...props} />,
+          li: ({...props}) => <li className="my-1 text-gray-800 dark:text-gray-200" {...props} />,
+          blockquote: ({...props}) => <blockquote className="border-l-4 border-gray-300 dark:border-gray-600 pl-4 my-3 italic text-gray-700 dark:text-gray-300" {...props} />
         }}
       >
         {markdownContent}

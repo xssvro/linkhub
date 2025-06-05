@@ -7,9 +7,9 @@ const { Title, Paragraph } = Typography
 const About = () => {
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="shadow-md">
-        <Title level={2}>关于 LinkHub</Title>
-        <Paragraph>
+      <Card className="bg-white dark:bg-gray-800">
+        <Title level={2} className="text-gray-900 dark:text-white">关于 LinkHub</Title>
+        <Paragraph className="text-gray-700 dark:text-gray-300">
           LinkHub 是一个使用现代前端技术栈构建的应用。
         </Paragraph>
         
@@ -19,7 +19,7 @@ const About = () => {
         
         <Divider />
         
-        <Link to="/" className="text-blue-500 hover:underline">返回首页</Link>
+        <Link to="/" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 hover:underline">返回首页</Link>
       </Card>
     </div>
   )
