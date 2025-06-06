@@ -2,8 +2,8 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 // 创建 axios 实例
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000',
-  timeout: 10000,
+  baseURL: (import.meta.env?.VITE_API_BASE_URL as string) || 'http://localhost:5000',
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -72,9 +72,4 @@ export const del = <T>(url: string, config?: AxiosRequestConfig): Promise<T> => 
   return apiClient.delete(url, config).then((res: AxiosResponse<T>) => res.data)
 }
 
-export default {
-  get,
-  post,
-  put,
-  del,
-} 
+export default apiClient; 

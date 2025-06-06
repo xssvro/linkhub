@@ -170,7 +170,7 @@ function useStreamRequest<T>(
         const fetchOptions: RequestInit = {
           method,
           headers: headers as HeadersInit,
-          signal: newController.signal,
+          signal: newController.signal as AbortSignal,
           body: data ? JSON.stringify(data) : undefined,
           ...restConfig
         };

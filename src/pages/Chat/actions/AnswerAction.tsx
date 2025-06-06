@@ -49,17 +49,17 @@ const AnswerAction: React.FC<AnswerActionProps> = ({ content }) => {
   // 预处理函数：将方括号格式的数学公式转换为美元符号格式
   const preprocessMath = (text: string): string => {
     // 将 \[ ... \] 转换为 $$ ... $$
-    let processed = text.replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, (match, mathContent) => {
+    let processed = text.replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, (_match, mathContent) => {
       return `$$${mathContent.trim()}$$`;
     });
     
     // 将 \( ... \) 转换为 $ ... $
-    processed = processed.replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, (match, mathContent) => {
+    processed = processed.replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, (_match, mathContent) => {
       return `$${mathContent.trim()}$`;
     });
     
     // 处理普通方括号格式 [ ... ] 转换为 $$ ... $$
-    processed = processed.replace(/\[\s*(\\text\{[^}]*\}[\s\S]*?)\s*\]/g, (match, mathContent) => {
+    processed = processed.replace(/\[\s*(\\text\{[^}]*\}[\s\S]*?)\s*\]/g, (_match, mathContent) => {
       return `$$${mathContent.trim()}$$`;
     });
     
@@ -70,7 +70,7 @@ const AnswerAction: React.FC<AnswerActionProps> = ({ content }) => {
   const markdownContent = preprocessMath(content);
 
   return (
-    <div className="markdown-content mx-2 rounded-md text-gray-900 dark:text-white w-full max-w-full">
+    <div className="markdown-content mx-2 text-gray-900 dark:text-white w-full max-w-full">
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[rehypeKatex]}
@@ -80,7 +80,7 @@ const AnswerAction: React.FC<AnswerActionProps> = ({ content }) => {
             
             if (isInline) {
               return (
-                <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded font-mono text-sm" {...props}>
+                <code className="bg-gray-200 dark:bg-gray-700 px-1 font-mono text-sm" {...props}>
                   {children}
                 </code>
               );
@@ -99,7 +99,7 @@ const AnswerAction: React.FC<AnswerActionProps> = ({ content }) => {
                   )}
                   <button
                     onClick={() => copyToClipboard(codeString)}
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-gray-600 hover:bg-gray-500 text-white text-xs px-2 py-1 rounded flex items-center gap-1"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-gray-600 hover:bg-gray-500 text-white text-xs px-2 py-1 flex items-center gap-1"
                     title="复制代码"
                   >
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,7 +114,7 @@ const AnswerAction: React.FC<AnswerActionProps> = ({ content }) => {
                   showLineNumbers
                   wrapLongLines
                   customStyle={{
-                    borderRadius: '0.375rem',
+                    borderRadius: '0',
                     margin: '0.5rem 0',
                     width: '100%'
                   }}
@@ -126,7 +126,7 @@ const AnswerAction: React.FC<AnswerActionProps> = ({ content }) => {
           },
           a({ children, href, ...props }) {
             return (
-              <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline" {...props}>
+              <a href={href} target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:underline" {...props}>
                 {children}
               </a>
             );

@@ -14,6 +14,12 @@
   -moz-osx-font-smoothing: grayscale;
 
   --ant-layout-header-height: 48px!important;
+  
+  /* 主题色定义 */
+  --primary-color: #4f46e5; /* indigo-600 */
+  --primary-hover: #4338ca; /* indigo-700 */
+  --primary-light: #6366f1; /* indigo-500 */
+  --primary-dark: #3730a3; /* indigo-800 */
 }
 
 /* 亮色模式的基本颜色 */
@@ -24,6 +30,150 @@
 /* 确保暗黑模式下的基本颜色 */
 :root.dark body {
   @apply bg-gray-900 text-gray-100;
+}
+
+/* 主题色按钮样式 */
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  color: white !important;
+}
+
+.btn-primary:disabled {
+  background-color: #9ca3af !important; /* gray-400 */
+  border-color: #9ca3af !important;
+  color: white !important;
+}
+
+/* 主题色链接样式 */
+.link-primary {
+  color: var(--primary-color) !important;
+}
+
+.link-primary:hover {
+  color: var(--primary-hover) !important;
+}
+
+/* 暗色模式下的主题色调整 */
+.dark .link-primary {
+  color: var(--primary-light) !important;
+}
+
+.dark .link-primary:hover {
+  color: var(--primary-color) !important;
+}
+
+/* TextArea输入框样式 */
+.ant-input {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.ant-input:hover,
+.ant-input:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* 深色模式下的TextArea样式 */
+.dark .ant-input {
+  background: transparent !important;
+  color: #f3f4f6 !important; /* gray-100 */
+}
+
+.dark .ant-input:hover,
+.dark .ant-input:focus {
+  background: transparent !important;
+  color: #f3f4f6 !important; /* gray-100 */
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dark .ant-input::placeholder {
+  color: #9ca3af !important; /* gray-400 */
+}
+
+/* 自定义Select下拉框样式 */
+.custom-select-dropdown {
+  background: white !important;
+  border: 1px solid #d1d5db !important; /* gray-300 */
+}
+
+.custom-select-dropdown .ant-select-item {
+  color: #374151 !important; /* gray-700 */
+}
+
+.custom-select-dropdown .ant-select-item:hover {
+  background-color: #f3f4f6 !important; /* gray-100 */
+}
+
+.custom-select-dropdown .ant-select-item-option-selected {
+  background-color: #e5e7eb !important; /* gray-200 */
+}
+
+/* 暗色模式下的Select下拉框样式 */
+.dark .custom-select-dropdown {
+  background: #1f2937 !important; /* gray-800 */
+  border: 1px solid #4b5563 !important; /* gray-600 */
+}
+
+.dark .custom-select-dropdown .ant-select-item {
+  color: #d1d5db !important; /* gray-300 */
+}
+
+.dark .custom-select-dropdown .ant-select-item:hover {
+  background-color: #374151 !important; /* gray-700 */
+}
+
+.dark .custom-select-dropdown .ant-select-item-option-selected {
+  background-color: #4b5563 !important; /* gray-600 */
+}
+
+/* 全局滚动条样式 */
+* {
+  scrollbar-width: thin;
+}
+
+/* WebKit 浏览器滚动条样式 */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f5f9; /* gray-100 */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #9ca3af; /* gray-400 */
+  border-radius: 0; /* sharp 设计，无圆角 */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #6b7280; /* gray-500 */
+}
+
+/* 暗色模式滚动条 */
+.dark *::-webkit-scrollbar-track {
+  background: #1f2937; /* gray-800 */
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background: #4b5563; /* gray-600 */
+}
+
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: #6b7280; /* gray-500 */
 }
 
 .app {

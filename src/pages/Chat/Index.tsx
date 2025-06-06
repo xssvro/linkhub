@@ -134,11 +134,11 @@ const Chat = () => {
         className={`flex mb-4 ${message.sender === 'user' ? 'justify-end' : 'justify-start'} ${addMessageAnimation(index)}`}
       >
         {message.sender === 'ai' ? (
-          <div className="w-full max-w-full bg-white dark:bg-gray-800 p-3 rounded-md">
+          <div className="w-full max-w-full bg-white dark:bg-gray-800 p-3">
             <AnswerAction content={message.content} />
           </div>
         ) : (
-          <div className="max-w-[70%] mx-2 p-3 bg-gray-100 dark:bg-gray-700 rounded-md text-gray-900 dark:text-gray-100">
+          <div className="max-w-[70%] mx-2 p-3 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             <div className="text-sm break-words whitespace-pre-wrap text-left">{message.content}</div>
             <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">{formatTime(message.timestamp)}</div>
           </div>
@@ -227,7 +227,7 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-800 rounded-md p-4 mb-4">
+      <div className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-800 p-4 mb-4 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500">
         {messageList}
         {loading && !currentAiMessage && (
           <div className="flex mb-4 items-center gap-1 text-gray-600 dark:text-gray-400 animate-pulse">
@@ -238,7 +238,7 @@ const Chat = () => {
         <div ref={messagesEndRef} />
       </div>
       
-      <div className="flex flex-col">
+      <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-4">
         <TextArea
           value={inputValue}
           onChange={handleInputChange}
@@ -247,23 +247,29 @@ const Chat = () => {
           onPressEnter={handleKeyPress}
           onCompositionStart={handleCompositionStart}
           onCompositionEnd={handleCompositionEnd}
-          className="flex-1 mb-2 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:border-gray-500 dark:placeholder-gray-500 transition-all duration-300"
+          className="border-0 p-0 resize-none bg-transparent text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+          style={{ 
+            boxShadow: 'none',
+            outline: 'none'
+          }}
         />
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
           <div className="flex space-x-2">
             <Select 
               value={selectedModel}
               onChange={setSelectedModel}
-              style={{ width: 120 }}
               options={models}
-              className="dark:bg-gray-800 dark:text-gray-100 transition-all duration-300"
-              dropdownClassName="dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600"
+              size="small"
+              className="text-sm"
+              dropdownStyle={{ minWidth: 200 }}
+              dropdownClassName="custom-select-dropdown"
             />
             {loading && (
               <Button 
                 danger
+                size="small"
                 onClick={handleAbort}
-                className="dark:bg-red-700 dark:text-white dark:border-red-600 dark:hover:bg-red-600 dark:hover:border-red-500 transition-all duration-300"
+                className="text-xs"
               >
                 停止生成
               </Button>
@@ -274,7 +280,8 @@ const Chat = () => {
             icon={<SendOutlined />} 
             onClick={handleSendMessage}
             disabled={loading || !inputValue.trim()}
-            className="dark:bg-blue-600 dark:border-blue-600 dark:hover:bg-blue-500 dark:text-white dark:hover:border-blue-500 transition-all duration-300"
+            size="small"
+            className="text-xs btn-primary"
           >
             发送
           </Button>

@@ -73,7 +73,7 @@ const AdminLayout = () => {
             className="text-gray-700 dark:text-gray-300"
           />
         </Header>
-        <Content className="m-6 p-6 bg-white dark:bg-gray-800 rounded-md">
+        <Content className="m-6 p-6 bg-white dark:bg-gray-800">
           <Outlet />
         </Content>
         <Footer className="text-center text-gray-600 dark:text-gray-400">LinkHub Admin ©{new Date().getFullYear()}</Footer>

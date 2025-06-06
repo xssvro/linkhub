@@ -19,7 +19,7 @@ const About = () => {
         
         <Divider />
         
-        <Link to="/" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 hover:underline">返回首页</Link>
+        <Link to="/" className="link-primary hover:underline">返回首页</Link>
       </Card>
     </div>
   )
