@@ -1,0 +1,65 @@
+<svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- 渐变定义 -->
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="linkGradientHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3730a3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Logo图标区域 -->
+  <g transform="translate(4, 4)">
+    <!-- 背景圆形 -->
+    <circle cx="16" cy="16" r="15" fill="url(#iconGradient)" stroke="#1e40af" stroke-width="1"/>
+    
+    <!-- 简化的连接点 -->
+    <circle cx="16" cy="6" r="1.5" fill="url(#linkGradientHeader)"/>
+    <circle cx="26" cy="16" r="1.5" fill="url(#linkGradientHeader)"/>
+    <circle cx="16" cy="26" r="1.5" fill="url(#linkGradientHeader)"/>
+    <circle cx="6" cy="16" r="1.5" fill="url(#linkGradientHeader)"/>
+    
+    <!-- 连接线 -->
+    <line x1="16" y1="7.5" x2="16" y2="10" stroke="url(#linkGradientHeader)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="24.5" y1="16" x2="22" y2="16" stroke="url(#linkGradientHeader)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="16" y1="24.5" x2="16" y2="22" stroke="url(#linkGradientHeader)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="7.5" y1="16" x2="10" y2="16" stroke="url(#linkGradientHeader)" stroke-width="1.5" stroke-linecap="round"/>
+    
+    <!-- 中心Hub -->
+    <circle cx="16" cy="16" r="6" fill="white" opacity="0.95"/>
+    <circle cx="16" cy="16" r="2" fill="url(#iconGradient)"/>
+    
+    <!-- AI元素 - 简化的三个点 -->
+    <circle cx="13" cy="15" r="0.6" fill="#1d4ed8"/>
+    <circle cx="16" cy="15" r="0.6" fill="#1d4ed8"/>
+    <circle cx="19" cy="15" r="0.6" fill="#1d4ed8"/>
+  </g>
+  
+  <!-- 文字部分 -->
+  <g transform="translate(48, 8)">
+    <!-- LinkHub 文字 -->
+    <text x="0" y="18" 
+          font-family="Inter, system-ui, sans-serif" 
+          font-size="22" 
+          font-weight="700" 
+          fill="url(#textGradient)">
+      LinkHub
+    </text>
+    <!-- 副标题 -->
+    <text x="0" y="30" 
+          font-family="Inter, system-ui, sans-serif" 
+          font-size="9" 
+          font-weight="400" 
+          fill="#6b7280" 
+          opacity="0.8">
+      AI-Powered Link Platform
+    </text>
+  </g>
+</svg> 

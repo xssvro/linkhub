@@ -1,0 +1,12 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 - 锋利设计 -->
+  <rect x="0" y="0" width="32" height="32" rx="2" fill="#3b82f6"/>
+  
+  <!-- 链接图标 - 交叉圆环 -->
+  <g transform="translate(8, 8)">
+    <!-- 第一个环 -->
+    <circle cx="6" cy="8" r="4" fill="none" stroke="white" stroke-width="2.5"/>
+    <!-- 第二个环 - 稍微偏移并重叠 -->
+    <circle cx="10" cy="8" r="4" fill="none" stroke="white" stroke-width="2.5"/>
+  </g>
+</svg> 

@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import { SunOutlined, MoonOutlined, SettingOutlined } from '@ant-design/icons';
+import { SunOutlined, MoonOutlined, SettingOutlined, LinkOutlined } from '@ant-design/icons';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useThemeStore } from '../stores/themeStore';
 import { useEffect } from 'react';
@@ -31,10 +31,12 @@ const DefaultLayout = () => {
         <div className="flex items-center space-x-8">
           <Link 
             to="/" 
-            className="flex items-center"
+            className="flex items-center space-x-2 group"
           >
-            {/* 纯文字Logo */}
-            <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-800 dark:from-indigo-400 dark:to-indigo-600 bg-clip-text text-transparent">
+            <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center">
+              <LinkOutlined className="text-white text-lg" />
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-800 dark:from-indigo-400 dark:to-indigo-600 bg-clip-text text-transparent group-hover:from-indigo-700 group-hover:to-indigo-900 dark:group-hover:from-indigo-300 dark:group-hover:to-indigo-500 transition-all duration-300">
               LinkHub
             </span>
           </Link>

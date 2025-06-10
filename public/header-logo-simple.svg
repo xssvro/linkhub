@@ -1,0 +1,43 @@
+<svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="textGradientSimple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3730a3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 简约图标区域 -->
+  <g transform="translate(2, 2)">
+    <!-- 背景矩形 - 锋利设计 -->
+    <rect x="0" y="0" width="32" height="32" rx="2" fill="#3b82f6"/>
+    
+    <!-- 链接图标 - 交叉圆环 -->
+    <g transform="translate(8, 8)">
+      <!-- 第一个环 -->
+      <circle cx="6" cy="8" r="4" fill="none" stroke="white" stroke-width="2.5"/>
+      <!-- 第二个环 - 稍微偏移并重叠 -->
+      <circle cx="10" cy="8" r="4" fill="none" stroke="white" stroke-width="2.5"/>
+    </g>
+  </g>
+  
+  <!-- 文字部分 -->
+  <g transform="translate(42, 6)">
+    <!-- LinkHub 文字 -->
+    <text x="0" y="16" 
+          font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" 
+          font-size="20" 
+          font-weight="600" 
+          fill="url(#textGradientSimple)">
+      LinkHub
+    </text>
+    <!-- 副标题 -->
+    <text x="0" y="27" 
+          font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" 
+          font-size="8" 
+          font-weight="400" 
+          fill="#6b7280" 
+          opacity="0.7">
+      AI Link Platform
+    </text>
+  </g>
+</svg> 
