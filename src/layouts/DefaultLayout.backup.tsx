@@ -37,7 +37,7 @@ const DefaultLayout = () => {
               <LinkOutlined className="text-white text-lg" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-800 dark:from-indigo-400 dark:to-indigo-600 bg-clip-text text-transparent group-hover:from-indigo-700 group-hover:to-indigo-900 dark:group-hover:from-indigo-300 dark:group-hover:to-indigo-500 transition-all duration-300">
-              LinkHub
+              网鸦-LinkHub
             </span>
           </Link>
           <nav className="hidden md:flex items-center space-x-6">

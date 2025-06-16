@@ -35,7 +35,7 @@ const DefaultLayout = () => {
           >
             {/* 纯文字Logo */}
             <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-800 dark:from-indigo-400 dark:to-indigo-600 bg-clip-text text-transparent">
-              LinkHub
+              网鸦 LinkHub
             </span>
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
