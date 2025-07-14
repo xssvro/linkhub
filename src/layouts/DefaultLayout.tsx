@@ -41,28 +41,28 @@ const DefaultLayout = () => {
           <nav className="hidden md:flex items-center space-x-6">
             <Link 
               to="/chat" 
-              className={`font-medium transition-colors relative group ${
+              className={`font-medium relative ${
                 isActive('/chat') 
                   ? 'text-indigo-600 dark:text-indigo-400' 
-                  : 'text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+                  : 'text-gray-700 dark:text-gray-300'
               }`}
             >
               AI聊天
-              <span className={`absolute -bottom-1 left-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all ${
-                isActive('/chat') ? 'w-full' : 'w-0 group-hover:w-full'
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 ${
+                isActive('/chat') ? 'w-full' : 'w-0'
               }`}></span>
             </Link>
             <Link 
               to="/settings" 
-              className={`font-medium transition-colors relative group ${
+              className={`font-medium relative ${
                 isActive('/settings') 
                   ? 'text-indigo-600 dark:text-indigo-400' 
-                  : 'text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+                  : 'text-gray-700 dark:text-gray-300'
               }`}
             >
               设置
-              <span className={`absolute -bottom-1 left-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all ${
-                isActive('/settings') ? 'w-full' : 'w-0 group-hover:w-full'
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 ${
+                isActive('/settings') ? 'w-full' : 'w-0'
               }`}></span>
             </Link>
           </nav>
