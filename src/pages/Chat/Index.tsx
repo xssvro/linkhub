@@ -32,6 +32,13 @@ import { useModelStore } from '../../stores/modelStore';
 
 const Chat = () => {
   const { models, selectedModel, setSelectedModel } = useModelStore();
+  
+  // 将 Model 对象转换为 Select 组件需要的格式
+  const modelOptions = models.map(model => ({
+    value: model.name,
+    label: model.name
+  }));
+
   const [messages, setMessages] = useState<MessageProps[]>([
     { content: '你好，我是AI助手，有什么可以帮助你的?', sender: 'ai', timestamp: new Date() }
   ]);
@@ -258,7 +265,7 @@ const Chat = () => {
             <Select 
               value={selectedModel}
               onChange={setSelectedModel}
-              options={models}
+              options={modelOptions}
               size="small"
               className="text-sm"
               dropdownStyle={{ minWidth: 200 }}

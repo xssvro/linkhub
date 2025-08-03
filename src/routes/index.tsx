@@ -8,6 +8,7 @@ import SimpleLayout from '../layouts/SimpleLayout'
 const NotFound = lazy(() => import('@/pages/NotFound/Index'))
 const Chat = lazy(() => import('@/pages/Chat/Index'))
 const Settings = lazy(() => import('@/pages/Settings/Index'))
+const Model = lazy(() => import('@/pages/Model/Index'))
 
 // 路由配置
 const routes: RouteObject[] = [
@@ -24,6 +25,14 @@ const routes: RouteObject[] = [
         element: (
           <Suspense fallback={<Loading />}>
             <Chat />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'model',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Model />
           </Suspense>
         ),
       },

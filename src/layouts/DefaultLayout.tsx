@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import { SunOutlined, MoonOutlined, SettingOutlined } from '@ant-design/icons';
+import { SunOutlined, MoonOutlined, SettingOutlined, RobotOutlined } from '@ant-design/icons';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useThemeStore } from '../stores/themeStore';
 import { useEffect } from 'react';
@@ -50,6 +50,19 @@ const DefaultLayout = () => {
               AI聊天
               <span className={`absolute -bottom-1 left-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 ${
                 isActive('/chat') ? 'w-full' : 'w-0'
+              }`}></span>
+            </Link>
+            <Link 
+              to="/model" 
+              className={`font-medium relative ${
+                isActive('/model') 
+                  ? 'text-indigo-600 dark:text-indigo-400' 
+                  : 'text-gray-700 dark:text-gray-300'
+              }`}
+            >
+              AI模型
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 ${
+                isActive('/model') ? 'w-full' : 'w-0'
               }`}></span>
             </Link>
             <Link 

@@ -9,6 +9,12 @@ const Settings = () => {
   const { theme, toggleTheme } = useThemeStore()
   const { models, selectedModel, setSelectedModel } = useModelStore()
 
+  // 将 Model 对象转换为 Select 组件需要的格式
+  const modelOptions = models.map(model => ({
+    value: model.name,
+    label: model.name
+  }))
+
   return (
     <div className="max-w-4xl mx-auto">
       <Card className="bg-white dark:bg-gray-800">
@@ -40,7 +46,7 @@ const Settings = () => {
                 value={selectedModel}
                 onChange={setSelectedModel}
                 style={{ width: 200 }}
-                options={models}
+                options={modelOptions}
               />
             </div>
           </div>
